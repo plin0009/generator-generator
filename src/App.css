@@ -27,6 +27,10 @@ body,
   position: absolute;
   bottom: 0;
   width: 100%;
+  /* background: -webkit-linear-gradient(#abc, #def); */
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .num-input-wrapper {

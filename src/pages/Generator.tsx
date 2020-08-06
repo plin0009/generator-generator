@@ -79,11 +79,19 @@ const GeneratorPage = ({ match }: RouteComponentProps<GeneratorPageParams>) => {
       return template;
     });
 
-    setColor(
-      `rgb(${Math.random() * 180 + 40}, ${Math.random() * 140 + 20}, ${
-        Math.random() * 180 + 40
-      })`
-    );
+    setColor(() => {
+      const r = Math.random() * 160 + 90;
+      const g = Math.random() * 170 + 40;
+      const b = Math.random() * 215 + 40;
+
+      const r2 = r - (20 + Math.random() * 60);
+      const g2 = g - (20 + Math.random() * 60);
+      const b2 = b - (20 + Math.random() * 100);
+
+      const color1 = `rgb(${r}, ${g}, ${b})`;
+      const color2 = `rgb(${r2}, ${g2}, ${b2})`;
+      return `-webkit-linear-gradient(${color1}, ${color2})`;
+    });
   }, [data, counts]);
 
   useEffect(() => {
@@ -103,7 +111,7 @@ const GeneratorPage = ({ match }: RouteComponentProps<GeneratorPageParams>) => {
   return (
     <main className="App">
       <div className="idea-wrapper">
-        <p className="idea" style={{ color }}>
+        <p className="idea" style={{ backgroundImage: color }}>
           {idea}
         </p>
       </div>
