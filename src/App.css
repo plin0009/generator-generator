@@ -1,38 +1,107 @@
-.App {
-  text-align: center;
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#root {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  align-items: center;
+}
+.App {
+  text-align: center;
+  width: 60%;
+  height: 80%;
 }
 
-.App-link {
-  color: #61dafb;
+.idea-wrapper {
+  height: 50%;
+  position: relative;
+}
+.idea {
+  font-size: 2em;
+  font-weight: 800;
+  text-align: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.num-input-wrapper {
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.num-input-label {
+  /*font-size: 0.8em;*/
+  flex-shrink: 1;
+}
+
+.num-input {
+  flex-shrink: 1;
+  width: 3em;
+  font-size: 1em;
+}
+
+.generate-area {
+  margin: 2em;
+}
+
+.generate-prompt {
+  opacity: 0.3;
+  font-size: 0.8em;
+}
+
+.edit-lists-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2em;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.edit-list-box {
+  padding: 1em;
+  border-radius: 0.5em;
+  background-color: lightgrey;
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog {
+  position: fixed;
+  background-color: #0008;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.dialog-box {
+  background-color: #fff;
+  margin: 2em;
+  padding: 2em;
+  border-radius: 1em;
+  align-self: start;
+  z-index: 10;
+}
+
+.dialog-background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #0004;
 }
