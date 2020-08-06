@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import LZString from "lz-string";
 
@@ -59,27 +59,35 @@ const GeneratorPage = ({ match }: RouteComponentProps<GeneratorPageParams>) => {
     })()
   );
 
-  const generateIdea = () => {
-    if (data === null || counts === null) {
-      return null;
-    }
-    let template = data.template;
-    for (let i = 0; i < data.lists.length; i++) {
-      const list = data.lists[i];
-      template = template.replace(new RegExp(`\\$${i + 1}`, "g"), () => {
-        return toOxfordCommaList(generateItems(counts[list.name], list.items));
-      });
-    }
-    return template;
-  };
+  const [idea, setIdea] = useState("");
+  const [color, setColor] = useState("rgb(0,0,0)");
 
-  const [idea, setIdea] = useState(generateIdea());
+  const regenerate = useCallback(() => {
+    setIdea(() => {
+      if (data === null || counts === null) {
+        return "";
+      }
+      let template = data.template;
+      for (let i = 0; i < data.lists.length; i++) {
+        const list = data.lists[i];
+        template = template.replace(new RegExp(`\\$${i + 1}`, "g"), () => {
+          return toOxfordCommaList(
+            generateItems(counts[list.name], list.items)
+          );
+        });
+      }
+      return template;
+    });
 
-  const regenerate = () => {
-    setIdea(() => generateIdea());
-  };
+    setColor(
+      `rgb(${Math.random() * 180 + 40}, ${Math.random() * 140 + 20}, ${
+        Math.random() * 180 + 40
+      })`
+    );
+  }, [data, counts]);
 
   useEffect(() => {
+    regenerate();
     const regenerateIfSpace = (e: KeyboardEvent) => {
       if (e.key === " ") {
         regenerate();
@@ -87,7 +95,7 @@ const GeneratorPage = ({ match }: RouteComponentProps<GeneratorPageParams>) => {
     };
     document.addEventListener("keyup", regenerateIfSpace);
     return () => document.removeEventListener("keyup", regenerateIfSpace);
-  });
+  }, [regenerate]);
 
   if (data === null) {
     return <div></div>;
@@ -95,7 +103,9 @@ const GeneratorPage = ({ match }: RouteComponentProps<GeneratorPageParams>) => {
   return (
     <main className="App">
       <div className="idea-wrapper">
-        <p className="idea">{idea}</p>
+        <p className="idea" style={{ color }}>
+          {idea}
+        </p>
       </div>
 
       <div>
